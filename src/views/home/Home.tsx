@@ -9,7 +9,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import AppNav from "../app-nav/AppNav";
 import { useEffect } from "react";
-import { switchToXDAI } from "../../utils/switcher";
+import { switchToOptimism } from "../../utils/switcher";
 import { useGlobalState } from "../../AppStateHolder";
 
 const tabs = [
@@ -34,7 +34,7 @@ export default function Home(props: unknown) {
 
   useEffect(() => {
     if (chainId && chainId !== 100) {
-      switchToXDAI(library);
+      switchToOptimism(library);
     }
   }, [chainId])
 

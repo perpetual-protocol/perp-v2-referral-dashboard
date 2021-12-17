@@ -19,7 +19,7 @@ type Props = {
 };
 
 const RPC_URLS = {
-  1: "https://mainnet.infura.io/v3/84842078b09946638c03157f83405213",
+  10: "https://mainnet.optimism.io",
 };
 
 export enum ConnectorNames {
@@ -32,10 +32,11 @@ const LogoMap = {
   [ConnectorNames.WalletConnect]: WalletConnectLogo,
 };
 
-export const injected = new InjectedConnector({});
+export const injected = new InjectedConnector({
+});
 
 export const walletconnect = new WalletConnectConnector({
-  supportedChainIds: [1],
+  supportedChainIds: [10],
   qrcode: true,
   rpc: RPC_URLS,
 });

@@ -32,7 +32,7 @@ echarts.use([
 const queryClient = new QueryClient();
 const notify = Notify({
   dappId: "11c0b233-f345-4691-af21-275b3e1a7d0f",
-  networkId: 100,
+  networkId: 10,
 });
 
 export const ToastContext = React.createContext(null);

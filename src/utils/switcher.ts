@@ -1,17 +1,17 @@
 import { JsonRpcProvider } from "@ethersproject/providers";
 
-export async function switchToXDAI(provider: JsonRpcProvider) {
+export async function switchToOptimism(provider: JsonRpcProvider) {
   const params = [
     {
-      chainId: "0x64",
-      chainName: "xDAI POA Network",
-      rpcUrls: ["https://rpc.xdaichain.com"],
+      chainId: "0xA",
+      chainName: "Optimistic Ethereum",
+      rpcUrls: ["https://mainnet.optimism.io/"],
       nativeCurrency: {
-        name: "xDAI",
-        symbol: "xDAI",
+        name: "ETH",
+        symbol: "ETH",
         decimals: 18,
       },
-      blockExplorerUrls: ["https://blockscout.com/xdai/mainnet"],
+      blockExplorerUrls: ["https://optimistic.etherscan.io/"],
     },
   ];
   await provider.send("wallet_addEthereumChain", params);
