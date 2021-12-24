@@ -13,7 +13,7 @@ import { useGlobalState } from "../AppStateHolder";
 import { referrerTiers } from "./useRewards";
 import useStaking from "./useStaking";
 
-const CONTRACT_ADDRESS = "0xcf76A8365A218D799f36030d89f86C8FBCC65a6E";
+const CONTRACT_ADDRESS = '0xbfBa3368d94b8b006A4fd59C13b9e9F9b071D106';
 const DOMAIN = "https://referral.perp.exchange";
 
 export async function callReferrerContract(
