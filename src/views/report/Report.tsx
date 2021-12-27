@@ -39,6 +39,7 @@ async function getReferralCodes() {
                 referrer {
                     id
                 }
+                vipTier
             }
         }`
     );
@@ -200,6 +201,7 @@ async function getTotalFeesPaidByReferralCode(
   referralCode?: string
 ) {
   const week = getLastNWeeks(weeksToGoBack)[0];
+  console.log('generating for', week);
   let needToFetchMoreDays = true;
   let needToFetchMoreTraderData = true;
   let skip = 0;
@@ -313,12 +315,12 @@ export default function Report(props: Props) {
   );
 
   const { data: referrerRewardsCSV, isSuccess: generatedReferrerRewardsCSV } =
-    useQuery(["referrerRewards"], () => getReferrerRewards(referralCodes, 1), {
+    useQuery(["referrerRewards"], () => getReferrerRewards(referralCodes, 2), {
       enabled: referralCodes?.length > 0,
     });
 
   const { data: refereeRewardsCSV, isSuccess: generatedRefereeRewardsCSV } =
-    useQuery(["refereeRewards"], () => getRefereeRewards(referralCodes, 1), {
+    useQuery(["refereeRewards"], () => getRefereeRewards(referralCodes, 2), {
       enabled: referralCodes?.length > 0,
     });
 

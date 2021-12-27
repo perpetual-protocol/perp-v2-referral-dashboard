@@ -86,10 +86,12 @@ export function calculateRefereeRewards(fees: number, stakedPerp: number) {
   return { tier, rebateUSD: 0 };
 }
 
-export function calculateReferrerRewards(stakedPerp: number, feesPaid: number) {
-  const tier = Object.values(referrerTiers)
+export function calculateReferrerRewards(stakedPerp: number, feesPaid: number, vipTier?: number) {
+  let tier = Object.values(referrerTiers)
     .reverse()
-    .find((t) => stakedPerp >= t.staked);
+    .find((t) => stakedPerp >= t.staked && t.minFees === 0);
+
+  if (vipTier) tier = referrerTiers[vipTier];
   if (tier) {
     const rebate = feesPaid * tier.rebate;
     const cappedRebate = rebate > tier.usd_cap ? tier.usd_cap : rebate;
