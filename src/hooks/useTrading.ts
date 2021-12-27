@@ -91,10 +91,11 @@ export default function useTrading(
   const volumeData = dayDatas.map((events, i) => {
     return {
       volume: sumBy(events, (e: any) => {
-        return Number(formatUnits(e?.tradingVolume, 18));
+        return Number(e?.tradingVolume);
       }),
       fee: sumBy(events, (e: any) => {
-        return Number(formatUnits(e?.fee, 18));
+
+        return Number(e?.fee);
       }),
       timestamp: days[i]
     };
