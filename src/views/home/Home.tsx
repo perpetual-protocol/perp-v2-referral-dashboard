@@ -33,7 +33,7 @@ export default function Home(props: unknown) {
   };
 
   useEffect(() => {
-    if (chainId && chainId !== 100) {
+    if (chainId && chainId !== 10) {
       switchToOptimism(library);
     }
   }, [chainId])
