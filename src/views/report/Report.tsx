@@ -45,7 +45,7 @@ async function getReferralCodes() {
     );
     const referralCodes = (
       referralCodesResponse?.data?.referralCodes || []
-    ).map((code) => ({ id: code.id, owner: code.referrer.id }));
+    ).map((code) => ({ id: code.id, owner: code.referrer.id, vipTier: code.vipTier }));
     allReferralCodes = [...allReferralCodes, ...referralCodes];
     if (referralCodes.length >= 1000) {
       needToFetchMoreCodes = true;
@@ -60,6 +60,7 @@ async function getReferralCodes() {
 type ReferralAndOwner = {
   owner: string;
   id: string;
+  vipTier: string;
 };
 
 type TradingData = {
@@ -121,7 +122,7 @@ export async function getReferrerRewards(
       for (const feesPaidByTrader of Object.values(
         referrerAndFees.traderFeesPaid
       )) {
-        const rebate = calculateReferrerRewards(stakedPerp, feesPaidByTrader);
+        const rebate = calculateReferrerRewards(stakedPerp, feesPaidByTrader, referrerAndFees.vipTier);
         referrerRebate = referrerRebate + rebate.rebateUSD;
         usd_cap = rebate.tier.usd_cap;
         tier = rebate.tier.tier;
