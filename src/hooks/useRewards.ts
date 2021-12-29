@@ -8,25 +8,25 @@ export const refereeTiers = {
   1: {
     staked: 0,
     usd_cap: 200,
-    rebate: 0.4,
+    rebate: 0.2,
     tier: 1,
   },
   2: {
     staked: 100,
     usd_cap: 500,
-    rebate: 0.4,
+    rebate: 0.2,
     tier: 2,
   },
   3: {
     staked: 1000,
     usd_cap: 800,
-    rebate: 0.4,
+    rebate: 0.2,
     tier: 3,
   },
   4: {
     staked: 10000,
     usd_cap: 1200,
-    rebate: 0.4,
+    rebate: 0.2,
     tier: 4,
   },
 };
