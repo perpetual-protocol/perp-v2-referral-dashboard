@@ -100,7 +100,7 @@ export function calculateReferrerRewards(stakedPerp: number, feesPaid: number, v
   return { tier, rebateUSD: 0 };
 }
 
-export default function useRewards(referralCode?: string) {
+export default function useRewards(referralCode?: string, vipTier?: number) {
   const { weeklyTradingFee } = useTrading();
   const { data: stakedPerp, isLoading: isLoadingStakingData } = useStaking();
 
@@ -108,7 +108,8 @@ export default function useRewards(referralCode?: string) {
     ["referrerRebate"],
     () => getReferrerRewards([{
       owner: 'unknown',
-      id: referralCode
+      id: referralCode,
+      vipTier: String(vipTier)
     }], 1),
     {
       enabled: !isLoadingStakingData && referralCode != null,
