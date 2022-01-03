@@ -40,6 +40,7 @@ export async function calculateRefereesWeeklyVolume(
   weeks: number = 7
 ) {
   const _weeks = getLastNWeeks(weeks);
+  console.log('weeks', weeks);
   const refereesDayData = await Promise.all(
     _weeks.map((week) => {
       return SUBGRAPH(`
@@ -65,14 +66,12 @@ export async function calculateRefereesWeeklyVolume(
 
   const volumes = (refereesDayData || []).map((day) =>
     sumBy(day.data.referralCodeDayDatas, (dayData: any) =>
-      Number(formatUnits(dayData.tradingVolume, 18))
+      Number(dayData.tradingVolume)
     )
   );
 
   const fees = (refereesDayData || []).map((day) =>
-    sumBy(day.data.referralCodeDayDatas, (dayData: any) =>
-      Number(formatUnits(dayData.fees, 18))
-    )
+    sumBy(day.data.referralCodeDayDatas, (dayData: any) => Number(dayData.fees))
   );
 
   return volumes.map((volume, i) => ({
@@ -107,7 +106,7 @@ function getVolumeChange(current: number, last: number) {
 }
 
 async function createReferralCode(code: string, provider: BaseProvider) {
-  return await callReferrerContract(provider, 'createReferralCode', [code]);
+  return await callReferrerContract(provider, "createReferralCode", [code]);
 }
 
 export default function useReferral() {
@@ -124,11 +123,14 @@ export default function useReferral() {
       .toDate(),
   }));
 
-  const { data: referrerResponse, isLoading: isLoadingReferralCodeData, refetch: refetchReferralCode } =
-    useQuery(
-      ["referrerCode", { account }],
-      () =>
-        SUBGRAPH(`
+  const {
+    data: referrerResponse,
+    isLoading: isLoadingReferralCodeData,
+    refetch: refetchReferralCode,
+  } = useQuery(
+    ["referrerCode", { account }],
+    () =>
+      SUBGRAPH(`
         query {
             trader(id: "${account.toLowerCase()}") {
             id
@@ -140,14 +142,14 @@ export default function useReferral() {
           }
         }
     `),
-      {
-        enabled: canAccessApp,
-        onSuccess: (response) => {
-          _setReferees(response?.data?.trader?.referrerCode?.referees);
-          _setReferralCode(response?.data?.trader?.referrerCode?.id);
-        },
-      }
-    );
+    {
+      enabled: canAccessApp,
+      onSuccess: (response) => {
+        _setReferees(response?.data?.trader?.referrerCode?.referees);
+        _setReferralCode(response?.data?.trader?.referrerCode?.id);
+      },
+    }
+  );
 
   const { data: weeklyReferralCodeVolume, isLoading: isLoadingWeeklyVolume } =
     useQuery(
@@ -227,6 +229,6 @@ export default function useReferral() {
     vipTier,
     vipSince,
     createReferralCode,
-    refetchReferralCode
+    refetchReferralCode,
   };
 }

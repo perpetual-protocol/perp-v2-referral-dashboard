@@ -35,7 +35,7 @@ export default function MyReferral(props: Props) {
     isVIP,
     vipTier,
     createReferralCode,
-    refetchReferralCode
+    refetchReferralCode,
   } = useReferral();
   const { notify } = useNotify();
   const { library } = useWeb3React();
@@ -44,9 +44,9 @@ export default function MyReferral(props: Props) {
     referrerRewards,
     isLoading: isLoadingRewards,
     nextReferrerTier,
-  } = useRewards(referralCode);
+  } = useRewards(referralCode, vipTier);
 
-  const [ownReferralCode, setOwnReferralCode] = useState('');
+  const [ownReferralCode, setOwnReferralCode] = useState("");
 
   const chartData = {
     values: referralCodeDayData.map((v) => v.newUsers),
@@ -60,10 +60,12 @@ export default function MyReferral(props: Props) {
     ),
   };
 
-  const cardState = nextReferrerTier ? "error" : "normal";
-  const stakeMoreText = nextReferrerTier
-    ? `Stake ${nextReferrerTier?.staked} PERP to reach the next tier and unlock more rewards.`
-    : "";
+  const cardState =
+    nextReferrerTier && nextReferrerTier?.tier !== 1 ? "error" : "normal";
+  const stakeMoreText =
+    nextReferrerTier && nextReferrerTier?.tier !== 1
+      ? `Stake ${nextReferrerTier?.staked} PERP to reach the next tier and unlock more rewards.`
+      : "";
 
   const weeklyReferralChartData = {
     values: weeklyRefereeVolumes.map((v) => Number(v.volume)),
@@ -74,14 +76,14 @@ export default function MyReferral(props: Props) {
 
   const onOwnReferralCodeChange = (event: ChangeEvent<Element>) => {
     setOwnReferralCode((event.target as any).value);
-  }
+  };
 
   const createOwnReferralCode = async () => {
     if (!ownReferralCode) {
-      showToast('Please enter a referral code!', 'error');
+      showToast("Please enter a referral code!", "error");
     }
     try {
-    const tx = await createReferralCode(ownReferralCode, library.getSigner());
+      const tx = await createReferralCode(ownReferralCode, library.getSigner());
       if (tx) {
         const { emitter } = notify.hash(tx.hash);
         emitter.on("txConfirmed", async () => {
@@ -89,10 +91,10 @@ export default function MyReferral(props: Props) {
         });
       }
     } catch (error) {
-      showToast('An error occurred', 'error');
-      console.error(error)
+      showToast("An error occurred", "error");
+      console.error(error);
     }
-  }
+  };
 
   return (
     <>
@@ -219,7 +221,9 @@ export default function MyReferral(props: Props) {
               <Input onChange={onOwnReferralCodeChange} />
             </div>
             <div>
-              <Button onClick={createOwnReferralCode} size='sm'>Create</Button>
+              <Button onClick={createOwnReferralCode} size="sm">
+                Create
+              </Button>
             </div>
           </div>
         </div>
