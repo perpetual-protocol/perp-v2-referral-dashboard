@@ -23,6 +23,7 @@ const rewardsFields = [
 ];
 
 const referrerRewardsFields = ["referrer", "code", "usd_cap", "rebateUSD"];
+const blacklistedCodes = ["perpofficial"]
 
 async function getReferralCodes() {
   let allReferralCodes = [];
@@ -34,7 +35,7 @@ async function getReferralCodes() {
   while (needToFetchMoreCodes) {
     const referralCodesResponse = await SUBGRAPH(
       `query {
-            referralCodes(first: 1000, skip: ${skip}) {
+            referralCodes(first: 1000, skip: ${skip}, where: { id_not_in: [${blacklistedCodes.map(code => `"${code}"`).join(',')}] }) {
                 id
                 referrer {
                     id
@@ -122,7 +123,7 @@ export async function getReferrerRewards(
       for (const feesPaidByTrader of Object.values(
         referrerAndFees.traderFeesPaid
       )) {
-        const rebate = calculateReferrerRewards(stakedPerp, feesPaidByTrader, referrerAndFees.vipTier);
+        const rebate = calculateReferrerRewards(stakedPerp, feesPaidByTrader, Number(referrerAndFees.vipTier));
         referrerRebate = referrerRebate + rebate.rebateUSD;
         usd_cap = rebate.tier.usd_cap;
         tier = rebate.tier.tier;
