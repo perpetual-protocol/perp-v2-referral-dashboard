@@ -15,6 +15,7 @@ import useStaking from "./useStaking";
 
 const CONTRACT_ADDRESS = '0xbfBa3368d94b8b006A4fd59C13b9e9F9b071D106';
 const DOMAIN = "https://referral.perp.com";
+const PERP_DOMAIN = "https://app.perp.com";
 
 export async function callReferrerContract(
   provider: BaseProvider,
@@ -198,7 +199,7 @@ export default function useReferral() {
   const totalReferees =
     referrerResponse?.data?.trader?.referrerCode?.referees?.length;
   const referees = referrerResponse?.data?.trader?.referrerCode?.referees;
-  const referralLink = `${DOMAIN}?code=${referralCode}`;
+  const referralLink = `${PERP_DOMAIN}?code=${referralCode}`;
   const isVIP =
     Number(referrerResponse?.data?.trader?.referrerCode?.vipTier) >= 3;
   const _normalTier = Object.values(referrerTiers)
