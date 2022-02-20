@@ -146,9 +146,7 @@ export default function MyReferral(props: Props) {
                   Rewards are calculated in USD but are distributed in PERP
                 </span>
                 <span>
-                  The more transactions you make, the more perps rewards you
-                  will get, and the rewards will be credited to your account
-                  every week.
+                The more transactions you make, the more in PERP rewards you will get, and the rewards will be credited to your account every week.
                 </span>
               </div>
             }
