@@ -139,6 +139,7 @@ export default function useReferral() {
               id
               referees
               vipTier
+              numReferees
             }
           }
         }
@@ -197,7 +198,7 @@ export default function useReferral() {
 
   const referralCode = referrerResponse?.data?.trader?.referrerCode?.id;
   const totalReferees =
-    referrerResponse?.data?.trader?.referrerCode?.referees?.length;
+    Number(referrerResponse?.data?.trader?.referrerCode?.numReferees) - 1;
   const referees = referrerResponse?.data?.trader?.referrerCode?.referees;
   const referralLink = `${PERP_DOMAIN}?code=${referralCode}`;
   const isVIP =

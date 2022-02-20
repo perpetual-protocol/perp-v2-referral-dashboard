@@ -67,7 +67,6 @@ export default function App() {
 
   useEffect(() => {
     const code = getPreAppliedCode();
-    console.log('oos', code);
     if (code) {
       window.location.replace(`${PERP_DOMAIN}?code=${code}`);
     }
