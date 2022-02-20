@@ -15,7 +15,7 @@ import useStaking from "./useStaking";
 
 const CONTRACT_ADDRESS = '0xbfBa3368d94b8b006A4fd59C13b9e9F9b071D106';
 const DOMAIN = "https://referral.perp.com";
-const PERP_DOMAIN = "https://app.perp.com";
+export const PERP_DOMAIN = "https://app.perp.com";
 
 export async function callReferrerContract(
   provider: BaseProvider,

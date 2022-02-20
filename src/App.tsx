@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Web3ReactProvider } from "@web3-react/core";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./views/home/Home";
@@ -20,6 +20,7 @@ import Report from "./views/report/Report";
 import Notify from "bnc-notify";
 import AppStateProvider from "./AppStateHolder";
 import Admin from "./views/admin/Admin";
+import { PERP_DOMAIN } from './hooks/useReferral';
 echarts.use([
   LineChart,
   TitleComponent,
@@ -44,6 +45,12 @@ function getLibrary(provider) {
   return new Web3Provider(provider);
 }
 
+const getPreAppliedCode = () => {
+  const urlQuery = new URLSearchParams(window.location.search);
+  const preAppliedCode = urlQuery.get("code");
+  return preAppliedCode || "";
+};
+
 export default function App() {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [toastText, setToastText] = useState("");
@@ -57,6 +64,14 @@ export default function App() {
       setToastText("");
     }, 4000);
   };
+
+  useEffect(() => {
+    const code = getPreAppliedCode();
+    console.log('oos', code);
+    if (code) {
+      window.location.replace(`${PERP_DOMAIN}?code=${code}`);
+    }
+  }, []);
 
   return (
     <ToastContext.Provider value={{ showToast }}>
