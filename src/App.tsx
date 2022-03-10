@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Web3ReactProvider } from "@web3-react/core";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./views/home/Home";
+import DownloadBanner from "./views/download-banner/DownloadBanner";
 import { Web3Provider } from "@ethersproject/providers";
 import { useState } from "react";
 import Toast from "./components/Toast";
@@ -82,6 +83,7 @@ export default function App() {
                 <Route path="/" component={Home} />
                 <Route path="/report" component={Report} />
                 <Route path="/admin" component={Admin} />
+                <Route path="/banner" component={DownloadBanner} />
               </div>
             </AppStateProvider>
           </Web3ReactProvider>
