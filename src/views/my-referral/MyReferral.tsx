@@ -1,8 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
 
+import { Link } from "wouter"
+
 import USDCLogo from "../../assets/usdc-logo.svg";
 import Button from "../../components/Button";
 import Copy from "../../assets/copy.svg";
+import Download from "../../assets/download.svg";
 import useReferral from "../../hooks/useReferral";
 import StatCard from "../../components/StatCard";
 import PerpLogoGreen from "../../assets/logo-green.svg";
@@ -104,6 +107,17 @@ export default function MyReferral(props: Props) {
             <span className="text-lg text-white font-bold">
               My Code: {referralCode}
             </span>
+            <Link href="/banner">
+              <button>
+                <div className="flex">
+                  <Download />
+                  <span className="ml-2 text-perp-cyan font-semibold hover:text-perp-cyan-secondary">
+                    Download Referral Banner
+                  </span>
+                </div>
+              </button>
+            </Link>
+
             <CopyToClipboard
               text={referralLink}
               onCopy={() => showToast("Copied code to clipboard")}
