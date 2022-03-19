@@ -48,11 +48,8 @@ export default function DownloadBanner(props: unknown) {
       <div className="flex flex-col self-center justify-center items-center w-full h-full font-body subpixel-antialiased">
         {!canAccessApp && <ConnectWallet />}
         {canAccessApp && (
-          <div
-            className="grid grid-cols-12 mt-8 w-full gap-6 mb-20 px-4"
-            style={{ maxWidth: "1200px" }}
-          >
-            <div className="col-span-12">
+          <div style={{ maxWidth: "1200px" }} >
+            <div>
               <h1 className="text-white text-2xl font-bold">
                 Generate Referral Code Banner
               </h1>
