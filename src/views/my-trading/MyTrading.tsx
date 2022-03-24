@@ -133,6 +133,7 @@ export default function MyTrading(props: Props) {
       <StatCard
         icon={<USDCLogo />}
         value={rebateUSD}
+        format="$0,0.00"
         title="Weekly Rewards"
         max={tier?.usd_cap}
         isLoading={isLoadingData}

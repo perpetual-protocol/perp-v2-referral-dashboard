@@ -44,12 +44,12 @@ export function getTraderDayData(
   account: string,
   customWeeks: { start: number; end: number }[]
 ) {
-  
+
   const timestamps = customWeeks || getLastNWeeks(7);
   const promises = timestamps.map(async timestamp => {
     const res = await SUBGRAPH(`
         query {
-            traderDayDatas(where: { trader: "${account.toLowerCase()}", date_gte: ${timestamp.start}, date_lt: ${timestamp.end}}, orderDirection: desc, orderBy: date) {
+          traderDayDatas(where: { trader: "${account.toLowerCase()}", date_gte: ${timestamp.start}, date_lt: ${timestamp.end}}, orderDirection: desc, orderBy: date) {
                 id
                 tradingVolume
                 date
@@ -94,13 +94,12 @@ export default function useTrading(
         return Number(e?.tradingVolume);
       }),
       fee: sumBy(events, (e: any) => {
-
-        return Number(e?.fee);
+        // transfer wei to usd
+        return Number(e?.fee || 0) / 1e18;
       }),
       timestamp: days[i]
     };
   });
-
   const weeklyTradingVolume = last(volumeData)?.volume;
   const weeklyTradingFee = last(volumeData)?.fee;
 
