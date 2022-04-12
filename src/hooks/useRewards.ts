@@ -12,13 +12,13 @@ export const refereeTiers = {
     tier: 1,
   },
   2: {
-    staked: 1000,
+    staked: 100,
     usd_cap: 500,
     rebate: 0.2,
     tier: 2,
   },
   3: {
-    staked: 2000,
+    staked: 1000,
     usd_cap: 800,
     rebate: 0.2,
     tier: 3,
@@ -48,15 +48,15 @@ export const referrerTiers = {
   },
   3: {
     staked: 2000,
-    usd_cap: 3000,
-    rebate: 0.7,
+    usd_cap: Infinity,
+    rebate: 0.4,
     tier: 3,
     minFees: 10000,
   },
   4: {
     staked: 10000,
-    usd_cap: 3500,
-    rebate: 0.8,
+    usd_cap: Infinity,
+    rebate: 0.55,
     tier: 4,
     minFees: 50000
   },
