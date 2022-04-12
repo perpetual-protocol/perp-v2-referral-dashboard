@@ -169,8 +169,7 @@ export default function MyTrading(props: Props) {
       <div className="col-span-12 sm:col-span-6">
         <h5 className="text-white text-lg mb-4">Rewards Tiers</h5>
         <p className="text-perp-gray-50 mb-4">
-          You can increase your weekly caps by staking PERP with the address you
-          use for trading. Keep in mind that all rewards are paid in PERP. Tier 3 and 4 require manual upgrade. Check with us on <a href="https://discord.perp.fi/" target="_blank">Discord</a> to proceed. 
+          You can increase your weekly caps by staking PERP with the address you use for trading. Please see caps (in USD) for each staking tier on the right. Keep in mind that all rewards are paid in PERP.
         </p>
         <a href="https://staking.perp.exchange" target="_blank">
           <Button onClick={() => false} icon={<Wallet />}>
