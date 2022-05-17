@@ -48,8 +48,7 @@ export const walletconnect = new WalletConnectConnector({
   qrcode: true,
   rpc: RPC_URLS,
 });
-export const walletLinkConnect = new InjectedConnector({});
-new WalletLinkConnector({
+export const walletLinkConnect = new WalletLinkConnector({
   url: RPC_URLS[10],
   appName: "perp-exchange",
 });
