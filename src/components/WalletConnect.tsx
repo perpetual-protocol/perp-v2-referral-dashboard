@@ -70,7 +70,6 @@ export const activateInjectedProvider = (
   if (!ethereum?.providers) {
     return undefined;
   }
-  console.log("providerName", providerName);
 
   let provider;
   switch (providerName) {
@@ -105,34 +104,12 @@ export default function WalletConnect({ size = "sm" }: Props) {
   const { activate, deactivate, error, active } = useWeb3React();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { canAccessApp, account, setViewOnlyAddress } = useGlobalState();
-  useEffect(() => {
-    console.log("=====");
-    // async function test() {
-    //   await import("@coinbase/wallet-sdk")
-    //     .then((m) => {
-    //       console.log("dyninic", m);
 
-    //       return m?.default ?? m;
-    //     })
-    //     .then((coinbaseSD) => {
-    //       coinbaseSD;
-    //     })
-    //     .catch((error) => console.error("error", error));
-    // }
-
-    // test();
-    // async function test() {
-    //   await walletLinkConnect.activate().then(console.log).catch("test", error);
-    // }
-    // test();
-  }, []);
   useEffect(() => {
     console.error("err", error);
   }, [error]);
 
   const activateWallet = async (name: ConnectorNames) => {
-    console.log("name", name);
-
     if (
       name === ConnectorNames.Injected ||
       name === ConnectorNames.WalletlinkConnect
