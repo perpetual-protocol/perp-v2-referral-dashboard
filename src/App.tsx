@@ -8,7 +8,6 @@ import { useState } from "react";
 import Toast from "./components/Toast";
 import { useContext } from "react";
 import * as echarts from "echarts/core";
-
 import { LineChart, BarChart } from "echarts/charts";
 import {
   TitleComponent,
@@ -21,7 +20,7 @@ import Report from "./views/report/Report";
 import Notify from "bnc-notify";
 import AppStateProvider from "./AppStateHolder";
 import Admin from "./views/admin/Admin";
-import { PERP_DOMAIN } from './hooks/useReferral';
+import { PERP_DOMAIN } from "./hooks/useReferral";
 echarts.use([
   LineChart,
   TitleComponent,
@@ -37,12 +36,12 @@ const notify = Notify({
   networkId: 10,
 });
 
-export const ToastContext = React.createContext(null);
-export const NotifyContext = React.createContext(null);
+export const ToastContext = React.createContext<any>(null);
+export const NotifyContext = React.createContext<any>(null);
 export const useToast = () => useContext(ToastContext);
 export const useNotify = () => useContext(NotifyContext);
 
-function getLibrary(provider) {
+function getLibrary(provider: any) {
   return new Web3Provider(provider);
 }
 
@@ -55,8 +54,8 @@ const getPreAppliedCode = () => {
 export default function App() {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [toastText, setToastText] = useState("");
-  const [toastType, setToastType] = useState<'normal' | 'error'>('normal');
-  const showToast = (text: string, type: 'error' | 'normal' = 'normal') => {
+  const [toastType, setToastType] = useState<"normal" | "error">("normal");
+  const showToast = (text: string, type: "error" | "normal" = "normal") => {
     setToastType(type);
     setIsToastVisible(true);
     setToastText(text);

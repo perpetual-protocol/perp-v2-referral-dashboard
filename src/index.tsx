@@ -1,11 +1,12 @@
-import React from "react";
-import { render } from "react-dom";
-import App from "./App";
-import "./styles/tailwind.css";
+import React from "react"
+import { render } from "react-dom"
+import App from "./App"
+import "./styles/tailwind.css"
+import "./index.css"
 
 declare global {
-  interface Window {
-    ethereum: any;
-  }
+    interface Window {
+        ethereum: any
+    }
 }
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"))
