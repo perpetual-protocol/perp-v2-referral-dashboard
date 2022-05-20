@@ -30,14 +30,14 @@ const RPC_URLS = {
 export enum ConnectorNames {
   Injected = "Metamask",
   WalletConnect = "Wallet Connect",
-  WalletlinkConnect = "Coinbase Wallet",
+  // WalletlinkConnect = "Coinbase Wallet",
   TorusConnect = "Torus Wallet",
 }
 
 const LogoMap = {
   [ConnectorNames.Injected]: MetamaskLogo,
   [ConnectorNames.WalletConnect]: WalletConnectLogo,
-  [ConnectorNames.WalletlinkConnect]: CoinbaseLogo,
+  // [ConnectorNames.WalletlinkConnect]: CoinbaseLogo,
   [ConnectorNames.TorusConnect]: TorusLogo,
 };
 
@@ -73,11 +73,11 @@ export const activateInjectedProvider = (
 
   let provider;
   switch (providerName) {
-    case ConnectorNames.WalletlinkConnect:
-      provider = ethereum.providers.find(
-        ({ isCoinbaseWallet }: any) => isCoinbaseWallet
-      );
-      break;
+    // case ConnectorNames.WalletlinkConnect:
+    //   provider = ethereum.providers.find(
+    //     ({ isCoinbaseWallet }: any) => isCoinbaseWallet
+    //   );
+    //   break;
     case ConnectorNames.Injected:
       provider = ethereum.providers.find(({ isMetaMask }: any) => isMetaMask);
       break;
@@ -92,7 +92,7 @@ export const activateInjectedProvider = (
 export const connectorsByName: { [connectorName in ConnectorNames]: any } = {
   [ConnectorNames.Injected]: injected,
   [ConnectorNames.WalletConnect]: walletconnect,
-  [ConnectorNames.WalletlinkConnect]: walletLinkConnect,
+  // [ConnectorNames.WalletlinkConnect]: walletLinkConnect,
   [ConnectorNames.TorusConnect]: torusConnect,
 };
 
