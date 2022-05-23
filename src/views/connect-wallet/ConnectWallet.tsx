@@ -1,11 +1,8 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { ReactComponent as DiamondHands } from "../../assets/diamond-hands.svg"
 
-import WalletConnect from "../../components/WalletConnect"
-import Input from "../../components/Input"
-import { ChangeEvent } from "react"
-import { isAddress } from "ethers/lib/utils"
 import { useGlobalState } from "../../AppStateHolder"
+import WalletConnect from "../../components/WalletConnect"
 
 type Props = {}
 
@@ -20,7 +17,7 @@ export default function ConnectWallet(props: Props) {
 
     useEffect(() => {
         setViewOnlyAddress(getAddress())
-    }, [])
+    }, [setViewOnlyAddress])
 
     return (
         <div style={{ maxWidth: "1200px" }} className="w-full flex flex-col items-center justify-center mt-20 mx-auto">

@@ -1,10 +1,7 @@
-import React from "react"
-
-import { ReactComponent as Pipe } from "../../assets/pipe.svg"
-import { ReactComponent as PerpLogo } from "../../assets/logo.svg"
-import WalletConnect from "../../components/WalletConnect"
-import { useWeb3React } from "@web3-react/core"
 import { useGlobalState } from "../../AppStateHolder"
+import { ReactComponent as PerpLogo } from "../../assets/logo.svg"
+import { ReactComponent as Pipe } from "../../assets/pipe.svg"
+import WalletConnect from "../../components/WalletConnect"
 
 type Props = {}
 

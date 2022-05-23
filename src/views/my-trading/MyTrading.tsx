@@ -1,24 +1,23 @@
-import React, { ChangeEvent, useEffect } from "react"
-import LineChart from "../../components/LineChart"
-import Modal from "../../components/Modal"
-import StatCard from "../../components/StatCard"
-import useTrading from "../../hooks/useTrading"
+import { useWeb3React } from "@web3-react/core"
+import dayjs from "dayjs"
+import { ChangeEvent, useState } from "react"
+import { useMutation } from "react-query"
+import { useNotify } from "../../App"
 import { ReactComponent as PerpLogoGreen } from "../../assets/logo-green.svg"
 import { ReactComponent as USDCLogo } from "../../assets/usdc-logo.svg"
-import useStaking from "../../hooks/useStaking"
-import Button from "../../components/Button"
 import { ReactComponent as Wallet } from "../../assets/wallet.svg"
-import RewardsTiers from "../../components/RewardsTiers"
-import useRewards from "../../hooks/useRewards"
+import Button from "../../components/Button"
 import Input from "../../components/Input"
-import { useMutation } from "react-query"
-import { callReferrerContract } from "../../hooks/useReferral"
-import { useWeb3React } from "@web3-react/core"
-import { useReferee } from "../../hooks/useReferee"
-import { useState } from "react"
+import LineChart from "../../components/LineChart"
+import Modal from "../../components/Modal"
+import RewardsTiers from "../../components/RewardsTiers"
 import Skeleton from "../../components/Skeleton"
-import dayjs from "dayjs"
-import { useNotify } from "../../App"
+import StatCard from "../../components/StatCard"
+import { useReferee } from "../../hooks/useReferee"
+import { callReferrerContract } from "../../hooks/useReferral"
+import useRewards from "../../hooks/useRewards"
+import useStaking from "../../hooks/useStaking"
+import useTrading from "../../hooks/useTrading"
 
 type Props = {
     setActiveTab: Function
@@ -146,7 +145,7 @@ export default function MyTrading(props: Props) {
                     You can increase your weekly caps by staking PERP with the address you use for trading. Please see
                     caps (in USD) for each staking tier on the right. Keep in mind that all rewards are paid in PERP.
                 </p>
-                <a href="https://staking.perp.exchange" target="_blank">
+                <a href="https://staking.perp.exchange" target="_blank" rel="noreferrer">
                     <Button onClick={() => false} icon={<Wallet />}>
                         Staked Perp
                     </Button>
