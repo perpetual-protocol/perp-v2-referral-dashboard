@@ -1,9 +1,6 @@
-import React from "react"
-import { useEffect } from "react"
-import { useRef } from "react"
 import * as echarts from "echarts/core"
-import { useState } from "react"
 import numeral from "numeral"
+import { useEffect, useRef, useState } from "react"
 
 type ChartData = {
     values: number[]
@@ -85,7 +82,7 @@ export default function LineChart(props: Props) {
         if (chartInstance) {
             chartInstance.setOption(getOption(name, data))
         }
-    }, [data?.axis, data?.values])
+    }, [data?.axis, data?.values, chartInstance, data, name])
 
     useEffect(() => {
         if (chartRef.current && !chartInstance) {
@@ -97,7 +94,7 @@ export default function LineChart(props: Props) {
                 chart.resize()
             }
         }
-    }, [])
+    }, [chartInstance, data, name])
 
     return <div className="h-full w-full" ref={chartRef} />
 }

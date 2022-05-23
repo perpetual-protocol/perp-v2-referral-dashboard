@@ -1,23 +1,23 @@
-import React, { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState } from "react"
 
 import { Link } from "wouter"
 
-import { ReactComponent as USDCLogo } from "../../assets/usdc-logo.svg"
-import Button from "../../components/Button"
+import { useWeb3React } from "@web3-react/core"
+import dayjs from "dayjs"
+import { CopyToClipboard } from "react-copy-to-clipboard"
+import { useNotify, useToast } from "../../App"
 import { ReactComponent as Copy } from "../../assets/copy.svg"
 import { ReactComponent as Download } from "../../assets/download.svg"
-import useReferral from "../../hooks/useReferral"
-import StatCard from "../../components/StatCard"
 import { ReactComponent as PerpLogoGreen } from "../../assets/logo-green.svg"
-import { useNotify, useToast } from "../../App"
-import { CopyToClipboard } from "react-copy-to-clipboard"
-import LineChart from "../../components/LineChart"
+import { ReactComponent as USDCLogo } from "../../assets/usdc-logo.svg"
 import { ReactComponent as Wallet } from "../../assets/wallet.svg"
-import RewardsTiers from "../../components/RewardsTiers"
-import useRewards from "../../hooks/useRewards"
-import dayjs from "dayjs"
+import Button from "../../components/Button"
 import Input from "../../components/Input"
-import { useWeb3React } from "@web3-react/core"
+import LineChart from "../../components/LineChart"
+import RewardsTiers from "../../components/RewardsTiers"
+import StatCard from "../../components/StatCard"
+import useReferral from "../../hooks/useReferral"
+import useRewards from "../../hooks/useRewards"
 
 type Props = {
     setActiveTab: Function
@@ -35,7 +35,6 @@ export default function MyReferral(props: Props) {
         isLoadingDayDatas,
         isLoadingReferralCodeData,
         isLoadingWeeklyVolume,
-        isVIP,
         vipTier,
         createReferralCode,
         refetchReferralCode,
@@ -171,12 +170,12 @@ export default function MyReferral(props: Props) {
                             You can increase your weekly caps by staking PERP with the address you use for trading.
                             Please see caps (in USD) for each staking tier on the right. Keep in mind that all rewards
                             are paid in PERP. Tier 3 and 4 require manual upgrade. Check with us on{" "}
-                            <a href="https://discord.perp.fi/" target="_blank">
+                            <a href="https://discord.perp.fi/" target="_blank" rel="noreferrer">
                                 Discord
                             </a>{" "}
                             to proceed.
                         </p>
-                        <a href="https://staking.perp.exchange" target="_blank">
+                        <a href="https://staking.perp.exchange" target="_blank" rel="noreferrer">
                             <Button onClick={() => false} icon={<Wallet />}>
                                 Staked Perp
                             </Button>
