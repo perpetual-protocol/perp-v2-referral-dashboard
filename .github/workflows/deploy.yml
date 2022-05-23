@@ -54,4 +54,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ steps.set-variables.outputs.aws_access_key_id }}
           AWS_SECRET_ACCESS_KEY: ${{ steps.set-variables.outputs.aws_secret_access_key }}
           AWS_REGION: ${{ steps.set-variables.outputs.aws_s3_bucket_region }}
-          SOURCE_DIR: "dist"
+          SOURCE_DIR: "build"
