@@ -1,4 +1,3 @@
-import dayjs from "dayjs"
 import { useQuery } from "react-query"
 import { getReferrerRewards } from "../views/report/Report"
 import useStaking from "./useStaking"
