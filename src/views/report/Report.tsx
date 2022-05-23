@@ -1,7 +1,6 @@
 import { formatUnits } from "@ethersproject/units"
 import dayjs from "dayjs"
 import { parse } from "json2csv"
-import { sum } from "lodash"
 import { CSVLink } from "react-csv"
 import { useQuery } from "react-query"
 import Button from "../../components/Button"

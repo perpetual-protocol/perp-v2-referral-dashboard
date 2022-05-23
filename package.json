@@ -4,7 +4,8 @@
         "start:old": "parcel serve ./src/index.html",
         "tailwind": "npx tailwindcss -o ./src/styles/tailwind.css",
         "start": "react-scripts start",
-        "build": "react-scripts build"
+        "build": "react-scripts build",
+        "lint": "eslint src"
     },
     "dependencies": {
         "@ethersproject/bignumber": "^5.4.0",

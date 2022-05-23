@@ -33,7 +33,7 @@ export default function Home(props: unknown) {
         if (chainId && chainId !== 10) {
             switchToOptimism(library)
         }
-    }, [chainId, switchToOptimism])
+    }, [chainId, library])
 
     return (
         <div>
