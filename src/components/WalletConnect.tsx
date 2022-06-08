@@ -31,7 +31,7 @@ const RPC_URLS = {
 export enum ConnectorNames {
     Injected = "Metamask",
     WalletConnect = "Wallet Connect",
-    WalletlinkConnect = "Coinbase Wallet (extension)",
+    WalletlinkConnect = "Coinbase Wallet",
     TorusConnect = "Torus Wallet",
 }
 
