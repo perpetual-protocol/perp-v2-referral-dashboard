@@ -278,7 +278,6 @@ async function getRefereeRewards(referralCodes: ReferralAndOwner[], weeksToGoBac
 
 export default function Report() {
     const { data: referralCodes } = useQuery(["reportReferralCodes"], () => getReferralCodes())
-    console.log("referralCodes", referralCodes)
 
     const { data: referrerRewardsCSV, isSuccess: generatedReferrerRewardsCSV } = useQuery(
         ["referrerRewards"],
