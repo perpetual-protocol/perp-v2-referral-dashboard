@@ -245,7 +245,6 @@ async function getRefereeRewards(referralCodes: ReferralAndOwner[], weeksToGoBac
     // list of all referees and their paid fees
     // gets all the fees paid by traders
     const codeFees = await getFeesByTraderByReferralCode(referralCodes, weeksToGoBack)
-    console.log("getRefereeRewards", { codeFees })
 
     const aggregateFeesPaidByReferees: Record<string, number> = {}
     for (const feeData of codeFees) {
