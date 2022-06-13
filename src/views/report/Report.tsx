@@ -7,25 +7,25 @@ import Button from "../../components/Button"
 import { calculateRefereeRewards, calculateReferrerRewards } from "../../hooks/useRewards"
 import { getLastNWeeks } from "../../hooks/useTrading"
 import { STAKED_SUBGRAPH, SUBGRAPH } from "../../utils/http"
+import { rewardsFields, referrerRewardsFields, blacklistedCodes, PAGE_SIZE } from "./constants"
 
-type Props = {}
-
-const rewardsFields = ["referee", "usd_cap", "totalFeesPaid", "rebateUSD"]
-
-const referrerRewardsFields = ["referrer", "code", "usd_cap", "rebateUSD"]
-const blacklistedCodes = ["perpofficial"]
-
-async function getReferralCodes() {
+interface ReferralCodesProps {
+    id: string
+    owner: string
+    vipTier: string | null
+}
+async function getReferralCodes(): Promise<ReferralCodesProps[]> {
     let allReferralCodes = []
     let needToFetchMoreCodes = true
     let skip = 0
-    // don't know how many total codes there are
+
+    // NOTE: don't know how many total codes there are
     // so we run an exhaustive request loops to
     // check if there are more to get a full list
     while (needToFetchMoreCodes) {
         const referralCodesResponse = await SUBGRAPH(
             `query {
-            referralCodes(first: 1000, skip: ${skip}, where: { id_not_in: [${blacklistedCodes
+            referralCodes(first: ${PAGE_SIZE}, skip: ${skip}, where: { id_not_in: [${blacklistedCodes
                 .map(code => `"${code}"`)
                 .join(",")}] }) {
                 id
@@ -42,14 +42,14 @@ async function getReferralCodes() {
             vipTier: code.vipTier,
         }))
         allReferralCodes = [...allReferralCodes, ...referralCodes]
-        if (referralCodes.length >= 1000) {
+        if (referralCodes.length >= PAGE_SIZE) {
             needToFetchMoreCodes = true
-            skip = skip + 1000
+            skip = skip + PAGE_SIZE
         } else {
             needToFetchMoreCodes = false
         }
     }
-    return allReferralCodes
+    return allReferralCodes as ReferralCodesProps[]
 }
 
 type ReferralAndOwner = {
@@ -69,7 +69,10 @@ export async function getStakedPerp(account: string) {
     return Number(formatUnits(response?.data?.staker?.totalStaked || "0", 18))
 }
 
-async function getFeesByTraderByReferralCode(referralCodes: ReferralAndOwner[], weeksToGoBack: number) {
+async function getFeesByTraderByReferralCode(
+    referralCodes: ReferralAndOwner[],
+    weeksToGoBack: number,
+): Promise<FeesPaid[]> {
     // last complete week Sunday UTC 00:00 to Sunday UTC 00:00
     const feesPaid = await Promise.all(
         referralCodes.map(async code => {
@@ -167,6 +170,14 @@ export async function getReferrerRewards(referralCodes: ReferralAndOwner[], week
 //     return allRefereesWithFeesPaid
 // }
 
+interface FeesPaid {
+    traderFeesPaid: {
+        [address: string]: number
+    }
+    owner: string
+    id: string
+    vipTier: string | null
+}
 async function getTotalFeesPaidByReferralCode(weeksToGoBack: number, referralCode?: string) {
     const week = getLastNWeeks(weeksToGoBack)[0]
     console.log("generating for", week)
@@ -175,7 +186,7 @@ async function getTotalFeesPaidByReferralCode(weeksToGoBack: number, referralCod
     let skip = 0
     let skipTraderData = 0
     let additionalFilter = referralCode ? `, referralCode: "${referralCode}"` : ""
-    const feesPerTrader: Record<string, number> = {}
+    const feesPerTrader = {}
 
     // don't know how many total codes there are
     // so we run an exhaustive request loops to
@@ -227,7 +238,7 @@ async function getTotalFeesPaidByReferralCode(weeksToGoBack: number, referralCod
             }
         }
     }
-    return feesPerTrader
+    return feesPerTrader as FeesPaid["traderFeesPaid"]
 }
 
 async function getRefereeRewards(referralCodes: ReferralAndOwner[], weeksToGoBack: number) {
@@ -264,7 +275,7 @@ async function getRefereeRewards(referralCodes: ReferralAndOwner[], weeksToGoBac
     return csv
 }
 
-export default function Report(props: Props) {
+export default function Report() {
     const { data: referralCodes } = useQuery(["reportReferralCodes"], () => getReferralCodes())
 
     const { data: referrerRewardsCSV, isSuccess: generatedReferrerRewardsCSV } = useQuery(
