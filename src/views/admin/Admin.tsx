@@ -2,7 +2,7 @@ import { isAddress } from "@ethersproject/address"
 import { useWeb3React } from "@web3-react/core"
 import { formatDistanceToNow, fromUnixTime } from "date-fns"
 import { ChangeEvent, useState } from "react"
-import { useNotify, useToast } from "../../App"
+import { useToast } from "../../App"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
 import useAdmin, { Eligibility } from "../../hooks/useAdmin"
@@ -19,7 +19,6 @@ function PartnerRow({ eligibility }: PartnerRowProps) {
     const { assignVip, removeVip, refreshEligibility } = useAdmin()
     const { showToast } = useToast()
     const { library } = useWeb3React()
-    const { notify } = useNotify()
 
     const upgrade = async () => {
         const currentTier = eligibility.tier
@@ -47,24 +46,12 @@ function PartnerRow({ eligibility }: PartnerRowProps) {
         if (!tierBelow || tierBelow.minFees === 0) {
             try {
                 const tx = await removeVip(library.getSigner(), eligibility.address)
-                if (tx) {
-                    const { emitter } = notify.hash(tx.hash)
-                    emitter.on("txConfirmed", async () => {
-                        await refreshEligibility()
-                    })
-                }
             } catch (error) {}
             return
         }
         try {
             showToast("Downgrading...")
             const tx = await assignVip(library.getSigner(), eligibility.address, String(Number(currentTier) - 1))
-            if (tx) {
-                const { emitter } = notify.hash(tx.hash)
-                emitter.on("txConfirmed", async () => {
-                    await refreshEligibility()
-                })
-            }
         } catch (error) {
             console.log(error)
         }
@@ -103,7 +90,6 @@ function PartnerRow({ eligibility }: PartnerRowProps) {
 
 export default function Admin(props: Props) {
     const { library, active, account } = useWeb3React()
-    const { notify } = useNotify()
     const [partnerAddress, setPartnerAddress] = useState("")
     const [tier, setTier] = useState("")
     const [isValidAddress, setIsValidAddress] = useState(false)
@@ -126,25 +112,11 @@ export default function Admin(props: Props) {
         }
         showToast("Updating as VIP...")
         const tx = await assignVip(library.getSigner(), partnerAddress, tier)
-        if (tx) {
-            const { emitter } = notify.hash(tx.hash)
-            emitter.on("txConfirmed", async () => {
-                await refreshEligibility()
-                showToast("Updated as VIP!")
-            })
-        }
     }
 
     const deleteVip = async () => {
         showToast("Removing as VIP...")
         const tx = await removeVip(library.getSigner(), partnerAddress)
-        if (tx) {
-            const { emitter } = notify.hash(tx.hash)
-            emitter.on("txConfirmed", async () => {
-                await refreshEligibility()
-                showToast("Removed as VIP!")
-            })
-        }
     }
 
     const onVipAddressInputChange = (event: ChangeEvent<Element>) => {

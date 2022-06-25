@@ -24,7 +24,6 @@
         "@web3-react/walletlink-connector": "^6.2.14",
         "autoprefixer": "^10.2.6",
         "axios": "^0.21.1",
-        "bnc-notify": "^1.9.1",
         "date-fns": "^2.22.1",
         "dayjs": "^1.10.6",
         "echarts": "^5.1.2",

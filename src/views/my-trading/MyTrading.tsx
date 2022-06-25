@@ -2,7 +2,6 @@ import { useWeb3React } from "@web3-react/core"
 import dayjs from "dayjs"
 import { ChangeEvent, useState } from "react"
 import { useMutation } from "react-query"
-import { useNotify } from "../../App"
 import { ReactComponent as PerpLogoGreen } from "../../assets/logo-green.svg"
 import { ReactComponent as USDCLogo } from "../../assets/usdc-logo.svg"
 import { ReactComponent as Wallet } from "../../assets/wallet.svg"
@@ -34,7 +33,6 @@ export default function MyTrading(props: Props) {
         refereeRewards: { tier, rebateUSD },
         nextRefereeTier,
     } = useRewards()
-    const { notify } = useNotify()
 
     const isLoadingData = isLoadingTradeData || isLoadingStakingData
     const cardState = nextRefereeTier ? "error" : "normal"
@@ -65,14 +63,6 @@ export default function MyTrading(props: Props) {
             const tx = await setReferralCode()
             if (tx) {
                 setIsConfirmingTx(true)
-                const { emitter } = notify.hash(tx.hash)
-                emitter.on("txConfirmed", async () => {
-                    setIsConfirmingTx(false)
-                    await retryRefereeRequest()
-                })
-                emitter.on("txFailed", () => {
-                    setIsConfirmingTx(false)
-                })
             }
         }
     }

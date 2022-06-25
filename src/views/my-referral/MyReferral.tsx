@@ -5,7 +5,7 @@ import { Link } from "wouter"
 import { useWeb3React } from "@web3-react/core"
 import dayjs from "dayjs"
 import { CopyToClipboard } from "react-copy-to-clipboard"
-import { useNotify, useToast } from "../../App"
+import { useToast } from "../../App"
 import { ReactComponent as Copy } from "../../assets/copy.svg"
 import { ReactComponent as Download } from "../../assets/download.svg"
 import { ReactComponent as PerpLogoGreen } from "../../assets/logo-green.svg"
@@ -39,7 +39,6 @@ export default function MyReferral(props: Props) {
         createReferralCode,
         refetchReferralCode,
     } = useReferral()
-    const { notify } = useNotify()
     const { library } = useWeb3React()
     const { showToast } = useToast()
     const { referrerRewards, isLoading: isLoadingRewards, nextReferrerTier } = useRewards(referralCode, vipTier)
@@ -78,12 +77,6 @@ export default function MyReferral(props: Props) {
         }
         try {
             const tx = await createReferralCode(ownReferralCode, library.getSigner())
-            if (tx) {
-                const { emitter } = notify.hash(tx.hash)
-                emitter.on("txConfirmed", async () => {
-                    await refetchReferralCode()
-                })
-            }
         } catch (error) {
             showToast("An error occurred", "error")
             console.error(error)

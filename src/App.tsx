@@ -17,7 +17,6 @@ import {
 import { CanvasRenderer } from "echarts/renderers";
 import { Route } from "wouter";
 import Report from "./views/report/Report";
-import Notify from "bnc-notify";
 import AppStateProvider from "./AppStateHolder";
 import Admin from "./views/admin/Admin";
 import { PERP_DOMAIN } from "./hooks/useReferral";
@@ -31,15 +30,9 @@ echarts.use([
 ]);
 
 const queryClient = new QueryClient();
-const notify = Notify({
-  dappId: "11c0b233-f345-4691-af21-275b3e1a7d0f",
-  networkId: 10,
-});
 
 export const ToastContext = React.createContext<any>(null);
-export const NotifyContext = React.createContext<any>(null);
 export const useToast = () => useContext(ToastContext);
-export const useNotify = () => useContext(NotifyContext);
 
 function getLibrary(provider: any) {
   return new Web3Provider(provider);
@@ -74,7 +67,6 @@ export default function App() {
 
   return (
     <ToastContext.Provider value={{ showToast }}>
-      <NotifyContext.Provider value={{ notify }}>
         <QueryClientProvider client={queryClient}>
           <Web3ReactProvider getLibrary={getLibrary}>
             <AppStateProvider>
@@ -88,7 +80,6 @@ export default function App() {
           </Web3ReactProvider>
         </QueryClientProvider>
         <Toast isVisible={isToastVisible} text={toastText} type={toastType} />
-      </NotifyContext.Provider>
     </ToastContext.Provider>
   );
 }
