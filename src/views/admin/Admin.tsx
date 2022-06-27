@@ -46,12 +46,14 @@ function PartnerRow({ eligibility }: PartnerRowProps) {
         if (!tierBelow || tierBelow.minFees === 0) {
             try {
                 const tx = await removeVip(library.getSigner(), eligibility.address)
+                console.log(tx)
             } catch (error) {}
             return
         }
         try {
             showToast("Downgrading...")
             const tx = await assignVip(library.getSigner(), eligibility.address, String(Number(currentTier) - 1))
+            console.log(tx)
         } catch (error) {
             console.log(error)
         }
@@ -112,11 +114,13 @@ export default function Admin(props: Props) {
         }
         showToast("Updating as VIP...")
         const tx = await assignVip(library.getSigner(), partnerAddress, tier)
+        console.log(tx)
     }
 
     const deleteVip = async () => {
         showToast("Removing as VIP...")
         const tx = await removeVip(library.getSigner(), partnerAddress)
+        console.log(tx)
     }
 
     const onVipAddressInputChange = (event: ChangeEvent<Element>) => {

@@ -37,7 +37,6 @@ export default function MyReferral(props: Props) {
         isLoadingWeeklyVolume,
         vipTier,
         createReferralCode,
-        refetchReferralCode,
     } = useReferral()
     const { library } = useWeb3React()
     const { showToast } = useToast()
@@ -77,6 +76,7 @@ export default function MyReferral(props: Props) {
         }
         try {
             const tx = await createReferralCode(ownReferralCode, library.getSigner())
+            console.log(tx)
         } catch (error) {
             showToast("An error occurred", "error")
             console.error(error)

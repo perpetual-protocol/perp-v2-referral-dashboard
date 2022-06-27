@@ -26,7 +26,7 @@ export default function MyTrading(props: Props) {
     const [refereeCode, setRefereeCode] = useState()
     const [isConfirmingTx, setIsConfirmingTx] = useState(false)
     const { volumeData, weeklyTradingVolume, isLoading: isLoadingTradeData } = useTrading()
-    const { referralCodeExists, isReferee, retryRefereeRequest } = useReferee(refereeCode)
+    const { referralCodeExists, isReferee } = useReferee(refereeCode)
     const { library } = useWeb3React()
     const { data, isLoading: isLoadingStakingData } = useStaking()
     const {
