@@ -7,7 +7,7 @@ export const POST = async (url: string, body: Record<string, any>) => {
 }
 
 export const SUBGRAPH = (query: string) => {
-    return POST("https://subgraph-api-singapore.perp.fi/subgraphs/name/perpetual-protocol/perpetual-v2-optimism", {
+    return POST("https://api.thegraph.com/subgraphs/name/perpetual-protocol/perpetual-v2-optimism", {
         query,
     })
 }
