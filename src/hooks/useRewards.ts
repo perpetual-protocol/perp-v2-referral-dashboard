@@ -48,14 +48,14 @@ export const referrerTiers = {
     3: {
         staked: 2000,
         usd_cap: 3000,
-        rebate: 0.7,
+        rebate: 0.4,
         tier: 3,
         minFees: 10000,
     },
     4: {
         staked: 10000,
         usd_cap: 3500,
-        rebate: 0.8,
+        rebate: 0.55,
         tier: 4,
         minFees: 50000,
     },
