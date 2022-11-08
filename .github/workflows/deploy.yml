@@ -55,3 +55,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ steps.set-variables.outputs.aws_secret_access_key }}
           AWS_REGION: ${{ steps.set-variables.outputs.aws_s3_bucket_region }}
           SOURCE_DIR: "build"
+          
+      - name: pin4everland
+        id: pin4everland
+        uses: 4everland/pin-action@v1.3
+        with:
+          EVER_TOKEN: ${{secrets.EVER_TOKEN}}
+          EVER_PROJECT_NAME: "prep-v2-referral-dashboard"
+          EVER_PROJECT_PLAT: "IPFS"
+          BUILD_LOCATION: "./build"
